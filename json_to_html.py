@@ -26,16 +26,13 @@ class Json2Html:
         
         for list_elem in json_input:
             for elem_name, elem_attr in list_elem.items():
-                if elem_name == 'title':
-                    converted += '<h1>'+elem_attr+'</h1>'
-                if elem_name == 'body':
-                    converted += '<p>'+elem_attr+'</p>'
+                converted += '<%s>%s</%s>' % (elem_name, elem_attr, elem_name)
         
         return converted
 
 
 json2html = Json2Html()
-data = json2html.load_file(json_file='source1.json')
+data = json2html.load_file(json_file='source2.json')
 res = json2html.convert(data)
 print('=======Result==========')
 print(res)
