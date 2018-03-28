@@ -27,7 +27,7 @@ class Json2Html:
         """
         converted_list = ''
         for list_elem in list(map(self.convert_dict, json_data)):
-            converted_list += "<li>%s</li>" % list_elem
+            converted_list += '<li>%s</li>' % list_elem
         converted_list = '<ul>%s</ul>' % converted_list
         return converted_list
 
@@ -38,7 +38,11 @@ class Json2Html:
         """
         converted_dict = ''
         for elem_name, elem_attr in json_data.items():
-            converted_dict += '<%s>%s</%s>' % (elem_name, elem_attr, elem_name)
+            if type(elem_attr) == list:
+                converted_list = self.convert_list(elem_attr)
+                converted_dict += '<%s>%s</%s>' % (elem_name, converted_list, elem_name)
+            else:
+                converted_dict += '<%s>%s</%s>' % (elem_name, elem_attr, elem_name)
         return converted_dict
     
 
@@ -55,7 +59,7 @@ class Json2Html:
 
 
 json2html = Json2Html()
-data = json2html.load_file(json_file='source3.json')
+data = json2html.load_file(json_file='source4_1.json')
 res = json2html.convert(data)
 print('=======Result==========')
 print(res)
